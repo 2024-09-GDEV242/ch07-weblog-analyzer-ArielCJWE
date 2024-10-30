@@ -20,9 +20,11 @@ public class LogAnalyzer
         // access counts.
         hourCounts = new int[24];
         // Create the reader to obtain the data.
-        reader = new LogfileReader("demo.log");
+        reader = new LogfileReader();
     }
-
+    
+    
+    
     /**
      * Analyze the hourly access data from the log file.
      */
@@ -34,7 +36,7 @@ public class LogAnalyzer
             hourCounts[hour]++;
         }
     }
-
+    
     /**
      * Print the hourly counts.
      * These should have been set with a prior
