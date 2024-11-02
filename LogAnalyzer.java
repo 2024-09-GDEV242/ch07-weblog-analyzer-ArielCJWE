@@ -1,8 +1,9 @@
+import java.util.Arrays;
 /**
  * Read web server data and analyse hourly access patterns.
  * 
- * @author David J. Barnes and Michael Kölling.
- * @version    2016.02.29
+ * @author Ariel Wong-Edwin.
+ * @version    31.10.24
  */
 public class LogAnalyzer
 {
@@ -10,6 +11,8 @@ public class LogAnalyzer
     private int[] hourCounts;
     // Use a LogfileReader to access the data.
     private LogfileReader reader;
+    //Counting the total accesses   
+    private int totalAccesses;
 
     /**
      * Create an object to analyze hourly web accesses.
@@ -21,6 +24,8 @@ public class LogAnalyzer
         hourCounts = new int[24];
         // Create the reader to obtain the data.
         reader = new LogfileReader();
+        totalAccesses = 0; 
+        //starting the total access
     }
     
     
@@ -34,6 +39,8 @@ public class LogAnalyzer
             LogEntry entry = reader.next();
             int hour = entry.getHour();
             hourCounts[hour]++;
+            totalAccesses++;
+            //adding incriments
         }
     }
     
@@ -49,6 +56,18 @@ public class LogAnalyzer
             System.out.println(hour + ": " + hourCounts[hour]);
         }
     }
+    /**
+     * Determining the businest hour on the file.
+     */
+    public int busiesthouronFile(){
+        int maximumHour = 0;
+        for (int hour = 1; hour < hourCounts.length; hour++){
+            if (hourCounts[hour] > hourCounts[maximumHour]){
+            maximumHour = hour;}
+        }
+        return maximumHour;
+    }
+
     
     /**
      * Print the lines of data read by the LogfileReader
@@ -56,5 +75,12 @@ public class LogAnalyzer
     public void printData()
     {
         reader.printData();
+    }
+    
+    /**
+     * Getting the total number of accesses
+     */
+    public int totalnumAccesses() {
+        return totalAccesses;
     }
 }
