@@ -13,6 +13,8 @@ public class LogAnalyzer
     private LogfileReader reader;
     //Counting the total accesses   
     private int totalAccesses;
+    //Assuming no leap years
+    private int[] daysinYear;
 
     /**
      * Create an object to analyze hourly web accesses.
@@ -24,16 +26,18 @@ public class LogAnalyzer
         hourCounts = new int[24];
         // Create the reader to obtain the data.
         reader = new LogfileReader();
-        totalAccesses = 0; 
         //starting the total access
+        totalAccesses = 0; 
+        //Assuming no leap years
+        daysinYear = new int[365];
     }
     
     
     
     /**
-     * Analyze the hourly access data from the log file.
+     * Analyze the daily access data from the log file.
      */
-    public void analyzeHourlyData()
+    public void analyzeData()
     {
         while(reader.hasNext()) {
             LogEntry entry = reader.next();
@@ -41,21 +45,27 @@ public class LogAnalyzer
             hourCounts[hour]++;
             totalAccesses++;
             //adding incriments
+            int days = entry.getdayoftheYear();
+            daysinYear[days]++;
         }
     }
-    
     /**
-     * Print the hourly counts.
+     * Print the daily counts.
      * These should have been set with a prior
-     * call to analyzeHourlyData.
+     * call to analyzeDailyData.
      */
-    public void printHourlyCounts()
+    public void printCounts()
     {
-        System.out.println("Hr: Count");
+        System.out.println("Day: Count");
+        for(int day = 0; day < daysinYear.length; day++) {
+            System.out.println(day + ": " + daysinYear[day]);
+        }
+        System.out.println("Hour: Count");
         for(int hour = 0; hour < hourCounts.length; hour++) {
             System.out.println(hour + ": " + hourCounts[hour]);
         }
     }
+    
     /**
      * Determining the busiest hour on the file.
      */
@@ -97,6 +107,16 @@ public class LogAnalyzer
         }
         return new int[] {maximumHour1, maximumHour2};
         
+    }
+    
+    public int quietestDay(){
+        int quietestDay = 0;
+        for (int day = 1; day < daysinYear.length; day++){
+            if (daysinYear[day] < daysinYear[quietestDay]){
+                quietestDay = day;
+            }
+        }
+        return quietestDay + 1;
     }
     /**
      * Print the lines of data read by the LogfileReader
