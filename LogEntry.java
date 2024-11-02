@@ -16,7 +16,6 @@ public class LogEntry implements Comparable<LogEntry>
     private int[] dataValues;
     // The equivalent Calendar object for the log time.
     private Calendar when;
-    
     // At which index in dataValues the different fields
     // from a log line are stored.
     private static final int YEAR = 0, MONTH = 1, DAY = 2,
@@ -81,6 +80,22 @@ public class LogEntry implements Comparable<LogEntry>
         return dataValues[MINUTE];
     }
     
+    /**
+     * Returning the day of the year
+     * @return the day field from the log line.
+     */
+    public int getdayoftheYear()
+    {
+        return dataValues[DAY];
+    }
+    /**
+     * Returning the month of the year
+     * @return the month field from the log line.
+     */
+    public int getMonth()
+    {
+        return dataValues[MONTH];
+    }
     /**
      * Create a string representation of the data.
      * This is not necessarily identical with the
