@@ -57,7 +57,7 @@ public class LogAnalyzer
         }
     }
     /**
-     * Determining the businest hour on the file.
+     * Determining the busiest hour on the file.
      */
     public int busiesthouronFile(){
         int maximumHour = 0;
@@ -67,7 +67,18 @@ public class LogAnalyzer
         }
         return maximumHour;
     }
-
+    
+    /**
+     * Finding the quietest number on the file.
+     */
+    public int quietesthouronFile(){
+        int minimumHour = 0;
+        for (int hour = 1; hour < hourCounts.length; hour++){
+            if (hourCounts[hour] < hourCounts[minimumHour]){
+            minimumHour = hour;}
+        }
+        return minimumHour;
+    }
     
     /**
      * Print the lines of data read by the LogfileReader
