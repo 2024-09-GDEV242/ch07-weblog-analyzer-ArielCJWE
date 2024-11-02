@@ -15,6 +15,8 @@ public class LogAnalyzer
     private int totalAccesses;
     //Assuming no leap years
     private int[] daysinYear;
+    //Where to calculate the hourly access counts.
+    private int[] monthCounts;
 
     /**
      * Create an object to analyze hourly web accesses.
@@ -30,6 +32,8 @@ public class LogAnalyzer
         totalAccesses = 0; 
         //Assuming no leap years
         daysinYear = new int[365];
+        //access counts.
+        monthCounts = new int[12];
     }
     
     
@@ -47,6 +51,8 @@ public class LogAnalyzer
             //adding incriments
             int days = entry.getdayoftheYear();
             daysinYear[days]++;
+            int month = entry.getMonth();
+            monthCounts[month - 1]++;
         }
     }
     /**
@@ -144,5 +150,11 @@ public class LogAnalyzer
      */
     public int totalnumAccesses() {
         return totalAccesses;
+    }
+    /**
+     * Getting the total number of accesses for the month
+     */
+    public int[] totalnumAccessesperMonth() {
+        return monthCounts;
     }
 }
