@@ -108,7 +108,9 @@ public class LogAnalyzer
         return new int[] {maximumHour1, maximumHour2};
         
     }
-    
+    /**
+     * Determining the quiestest day on the file.
+     */
     public int quietestDay(){
         int quietestDay = 0;
         for (int day = 1; day < daysinYear.length; day++){
@@ -116,7 +118,18 @@ public class LogAnalyzer
                 quietestDay = day;
             }
         }
-        return quietestDay + 1;
+        return quietestDay;
+    }
+    /**
+     * Determining the busiest day on the file.
+     */
+    public int busiestDay(){
+        int busiestDay = 0;
+        for (int day = 1; day < daysinYear.length; day++){
+            if (daysinYear[day] > daysinYear[busiestDay]){
+            busiestDay = day;}
+        }
+        return busiestDay;
     }
     /**
      * Print the lines of data read by the LogfileReader
