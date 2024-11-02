@@ -68,6 +68,7 @@ public class LogAnalyzer
         return maximumHour;
     }
     
+    
     /**
      * Finding the quietest number on the file.
      */
@@ -79,7 +80,24 @@ public class LogAnalyzer
         }
         return minimumHour;
     }
-    
+    /**
+     * Finding the busiest two-hour period
+     */
+    public int[] busiesttwohourPeriod() {
+        int maximumHour1 = 0;
+        int maximumHour2 = 0;
+
+        for (int hour = 0; hour < 24; hour++) {
+            // Sum accesses for the current hour and the next hour
+            int currentlyAccessed = hourCounts[hour] + hourCounts[(hour + 1) % 24];
+            if (currentlyAccessed > maximumHour1) {
+                maximumHour1 = currentlyAccessed;
+                maximumHour2 = hour;
+            }
+        }
+        return new int[] {maximumHour1, maximumHour2};
+        
+    }
     /**
      * Print the lines of data read by the LogfileReader
      */
